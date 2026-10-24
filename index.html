@@ -37,20 +37,33 @@
             }
 
 
-            render() {
-                this.date = new Date();// update date every tick
-                // Notice how we use them like normal properties (no parentheses!)
+           render() {
+                this.date = new Date();
                 console.log(`Time: ${this.currentTime} | Date: ${this.currentDate}`);
             }
 
+            start() {
+                this.render(); // Run once immediately
+                this.timer = setInterval(() => this.render(), 1000); // Then every 1 second
+            }
 
+            stop() {
+                clearInterval(this.timer);
+            }
         }
 
 
         let obj1 = new Clock();
         //  console.log(obj1);
         // 👇 YOU NEED TO CALL START HERE!
-        obj1.render();
+      //  obj1.render();
+      // 1. Start the clock
+        obj1.start();
+        // Stop the clock after 5000 milliseconds (5 seconds)
+        setTimeout(() => {
+            obj1.stop();
+            console.log("Clock stopped!");
+        }, 5000);
     </script>
 </body>
 
