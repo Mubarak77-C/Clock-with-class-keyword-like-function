@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>look at console time run display</h1>
+    <script>
+        class Clock {
+            constructor(){
+                this.timer;
+            }
+
+            //   console.log(timer) //undfefined
+            render(){
+                let date = new Date();
+
+                // Cleaner way to add leading zeros using padStart
+                let hours = String(date.getHours()).padStart(2, '0');
+                let mins = String(date.getMinutes()).padStart(2, '0');
+                let secs = String(date.getSeconds()).padStart(2, '0');
+
+                // Day and Month strings
+                let dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
+                let monthName = date.toLocaleDateString('en-US', { month: 'long' });
+                let today = date.getDate();
+
+                console.log(`Current time is: ${hours}:${mins}:${secs}`);
+                console.log(`Date: ${dayName}, ${monthName} ${today}`);
+                console.log("----------------------------------------");
+            }
+
+            // Method to start the clock
+            start(){
+                this.render();
+                // Use an arrow function so 'this' points to the Clock instance
+                this.timer = setInterval(() => this.render(), 1000);
+            }
+            // Method to stop the clock
+            stop() {
+                clearInterval(this.timer);
+            }
+
+
+        }
+
+
+        let obj1 = new Clock();
+        console.log(obj1);
+        // 👇 YOU NEED TO CALL START HERE!
+        obj1.start();
+    </script>
+</body>
+
+</html>
