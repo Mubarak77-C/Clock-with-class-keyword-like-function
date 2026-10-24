@@ -11,38 +11,36 @@
     <h1>look at console time run display</h1>
     <script>
         class Clock {
-            constructor(){
-                this.timer;
+            constructor() {
+                this.date = new Date();
             }
 
-            //   console.log(timer) //undfefined
-            render(){
-                let date = new Date();
-
+            // A GETTER for the formatted time string
+            get currentTime() {
                 // Cleaner way to add leading zeros using padStart
-                let hours = String(date.getHours()).padStart(2, '0');
-                let mins = String(date.getMinutes()).padStart(2, '0');
-                let secs = String(date.getSeconds()).padStart(2, '0');
+                // 👇 Fixed: added "this." before date
+                let hours = String(this.date.getHours()).padStart(2, '0');
+                let mins = String(this.date.getMinutes()).padStart(2, '0');
+                let secs = String(this.date.getSeconds()).padStart(2, '0');
+                return `${hours}:${mins}:${secs}`;
+            }
 
+            // A GETTER for the formatted date string
+            get currentDate() {
                 // Day and Month strings
-                let dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
-                let monthName = date.toLocaleDateString('en-US', { month: 'long' });
-                let today = date.getDate();
+                let dayName = this.date.toLocaleDateString('en-US', { weekday: 'long' });
+                let monthName = this.date.toLocaleDateString('en-US', { month: 'long' });
+                let today = this.date.getDate();
+                return `${dayName}, ${monthName} ${today}`;
 
-                console.log(`Current time is: ${hours}:${mins}:${secs}`);
-                console.log(`Date: ${dayName}, ${monthName} ${today}`);
-                console.log("----------------------------------------");
+
             }
 
-            // Method to start the clock
-            start(){
-                this.render();
-                // Use an arrow function so 'this' points to the Clock instance
-                this.timer = setInterval(() => this.render(), 1000);
-            }
-            // Method to stop the clock
-            stop() {
-                clearInterval(this.timer);
+
+            render() {
+                this.date = new Date();// update date every tick
+                // Notice how we use them like normal properties (no parentheses!)
+                console.log(`Time: ${this.currentTime} | Date: ${this.currentDate}`);
             }
 
 
@@ -50,9 +48,9 @@
 
 
         let obj1 = new Clock();
-        console.log(obj1);
+        //  console.log(obj1);
         // 👇 YOU NEED TO CALL START HERE!
-        obj1.start();
+        obj1.render();
     </script>
 </body>
 
